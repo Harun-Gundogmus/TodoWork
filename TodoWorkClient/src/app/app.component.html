@@ -1,0 +1,47 @@
+<h1>Todo App</h1>
+
+<div class="container">
+  <h2>To do</h2>
+
+  <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo" [cdkDropListConnectedTo]="[doneList]"
+    class="example-list" (cdkDropListDropped)="drop1($event)">
+    <div class="example-box justify-content-between" *ngFor="let item of todo" cdkDrag>{{item.work}}
+      <div>
+        <button (click)="deleteATodoFromDatabase(item.id)"><i class="fa-solid fa-trash-can"
+            style="color: #ff0000;"></i></button>
+        <button (click)="getATodo(item)"><i class="fa-regular fa-pen-to-square" style="color: #11ff00;"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <h2>Done</h2>
+
+  <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" [cdkDropListConnectedTo]="[todoList]"
+    class="example-list" (cdkDropListDropped)="drop2($event)">
+
+    <div class="example-box justify-content-between" *ngFor="let item of done" cdkDrag>{{item.work}}
+      <div>
+        <button (click)="deleteATodoFromDatabase(item.id)"><i class="fa-solid fa-trash-can"
+            style="color: #ff0000;"></i></button>
+        <button (click)="getATodo(item)"><i class="fa-regular fa-pen-to-square" style="color: #11ff00;"></i></button>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+<div class="new-container" *ngIf="isAdded">
+  <h2>Add A Todo: </h2>
+  <input [(ngModel)]="addTodo" type="text" placeholder="..." >
+  <button (click)="AddATodoToDatabase()">Add</button>
+  <button (click)="cancelAdd()">Cancel</button>
+</div>
+
+<div class="new-container" *ngIf="isUpdated">
+  <h2>Update A Todo : </h2>
+  <input [(ngModel)]="updateTodo" type="text" placeholder="..." >
+  <button (click)="updateATodoFromDatabase()">Update</button>
+  <button (click)="cancel()">Cancel</button>
+</div>
+
